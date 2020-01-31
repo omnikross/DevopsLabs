@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     db.vm.network "private_network", ip: "192.168.10.21"
     db.vm.hostname = "vm.db"
     db.vm.provider :virtualbox do |v|
+      v.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
       v.customize ["modifyvm", :id, "--natdnshostresolver2", "on"]
       v.customize ["modifyvm", :id, "--memory", 1024]
       v.customize ["modifyvm", :id, "--name", "db"]
@@ -39,6 +40,7 @@ Vagrant.configure("2") do |config|
     app.vm.hostname = "vm.app"
 
     app.vm.provider :virtualbox do |v|
+      v.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ]
       v.customize ["modifyvm", :id, "--natdnshostresolver2", "on"]
       v.customize ["modifyvm", :id, "--memory", 3096]
       v.customize ["modifyvm", :id, "--name", "app"]
